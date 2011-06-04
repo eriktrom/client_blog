@@ -1,0 +1,9 @@
+%h1= link_to_unless_current resource.title, resource
+%p= current_page?(collection_path) ? truncate(resource.body, :length => 100, :omission => '... (continued)') : resource.body
+
+= link_to 'Edit', [:edit, resource]
+\|
+= link_to 'Destroy', resource, :confirm => 'Are you sure?', :method => :delete
+- if current_page?(collection_path)
+  \|
+  = link_to "Show", resource
