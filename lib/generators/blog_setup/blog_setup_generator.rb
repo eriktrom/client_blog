@@ -15,5 +15,7 @@ class BlogSetupGenerator < Rails::Generators::Base
   end
   
   # TODO - setup migration
+    # -- setup posts migration
+    # -- setup blog_categories migration
   
 end

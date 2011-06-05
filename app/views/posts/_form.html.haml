@@ -2,10 +2,10 @@
   = render 'shared/error_messages', :target => @post
   .inputs
     .field.select.required
-      = f.label :category_id, "<abbr title='required'>*</abbr>Category".html_safe, :class => 'select required'
-      = f.collection_select :category_id, Category.all, :id, :name, {:prompt => "Select a category"}, {:class => 'select required'}
+      = f.label :blog_category_id, "<abbr title='required'>*</abbr>Category".html_safe, :class => 'select required'
+      = f.collection_select :blog_category_id, BlogCategory.all, :id, :name, {:prompt => "Select a category"}, {:class => 'select required'}
       or create one:
-      = f.text_field :new_category_name, :class => 'string required'
+      = f.text_field :new_blog_category_name, :class => 'string required'
     - if f.object.new_record? 
       = f.input :new_page_title, :label => 'Gallery title'
     - else
