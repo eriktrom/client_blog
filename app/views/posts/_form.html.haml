@@ -6,11 +6,6 @@
       = f.collection_select :category_id, Category.all, :id, :name, {:prompt => "Select a category"}, {:class => 'select required'}
       or create one:
       = f.text_field :new_category_name, :class => 'string required'
-    .field.select.required
-      = f.label :media_id, "<abbr title='required'>*</abbr>Media".html_safe, :class => 'select required'
-      = f.collection_select :media_id, Media.all, :id, :name, {:prompt => "Select a media type"}, {:class => 'select required'}
-      or create one:
-      = f.text_field :new_media_name, :class => 'string required'
     - if f.object.new_record? 
       = f.input :new_page_title, :label => 'Gallery title'
     - else
