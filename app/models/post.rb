@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
   belongs_to :blog_category
-  attr_accessor :new_blog_category_name
+  attr_accessor :new_blog_category_name, :new_blog_category_description
   before_save :create_blog_category_from_name
   include Googleable
   default_scope order('posts.date_of_publish').includes([:google])
@@ -12,7 +12,7 @@ class Post < ActiveRecord::Base
   private
   
   def create_blog_category_from_name
-    create_blog_category(:name => new_blog_category_name, :google_attributes => {:meta_title => new_blog_category_name, :page_title => new_blog_category_name, :meta_desc => new_blog_category_name}) if new_blog_category_name.present?
+    create_blog_category(:name => new_blog_category_name, :google_attributes => {:meta_title => new_blog_category_name, :page_title => new_blog_category_name, :meta_desc => new_blog_category_description}) if new_blog_category_name.present?
   end
   
 end

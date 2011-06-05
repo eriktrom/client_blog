@@ -5,11 +5,14 @@
       = f.label :blog_category_id, "<abbr title='required'>*</abbr>Category".html_safe, :class => 'select required'
       = f.collection_select :blog_category_id, BlogCategory.all, :id, :name, {:prompt => "Select a category"}, {:class => 'select required'}
       or create one:
+      = f.label :new_blog_category_name, "Blog category name"
       = f.text_field :new_blog_category_name, :class => 'string required'
+      = f.label :new_blog_category_description, "Blog category description"
+      = f.text_area :new_blog_category_description, :class => 'text required'
     - if f.object.new_record? 
-      = f.input :new_page_title, :label => 'Gallery title'
+      = f.input :new_page_title, :label => 'Post title'
     - else
-      = f.input :page_title, :label => 'Gallery title'
+      = f.input :page_title, :label => 'Post title'
     = f.input :author, :input_html => {:value => (Settings.default_post_author == nil ? '' : Settings.default_post_author)}
     = f.input :body
     = render 'googles/fields', :f => f

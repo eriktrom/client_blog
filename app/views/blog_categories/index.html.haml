@@ -1,0 +1,12 @@
+-# title #when u uncomment this, change resource.name to page_title and description to meta_desc
+= admin_resource('New Blog Category', new_resource)
+%ul#blog_category_sortables.sortme
+	- collection.each do |resource|
+		%li#sortable{:id => resource.id}
+			%h2= link_to resource.name, resource
+			%p= resource.description
+			= admin_area do
+				= link_to "Edit", [:edit, resource]
+				&nbsp;|&nbsp;
+				= link_to "Destroy", resource, :confirm => 'Are you sure?', :method => :delete
+= sortable_list(sort_blog_categories_path, "axis: 'y'", '#blog_category_sortables')

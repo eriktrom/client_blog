@@ -1,0 +1,13 @@
+= simple_form_for(@blog_category) do |f|
+  = render 'shared/error_messages', :target => @blog_category
+  .inputs
+    - if f.object.new_record? 
+      = f.input :new_page_title, :label => 'Category name'
+    - else
+      = f.input :page_title, :label => 'Category name'
+    = f.input :description
+    = f.input :position, :input_html => {:class => 'numeric'}
+    = render 'googles/fields', :f => f
+  .actions
+    = f.submit :disable_with => 'Patience is a Virtue...'
+    = cancel_b(:back, 'Back')
