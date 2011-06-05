@@ -1,3 +1,4 @@
+- title
 %h1= link_to_unless_current resource.title, resource
 %p= current_page?(collection_path) ? truncate(resource.body, :length => 100, :omission => '... (continued)') : resource.body
 

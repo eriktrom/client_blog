@@ -1,6 +1,6 @@
-%h1 Listing posts
+- title
 %ul#sortables.sortme
   - collection.each do |resource|
     %li= render :partial => resource, :as => :resource
 
-= link_to 'New Post', new_post_path
+= link_to 'New Post', new_resource
