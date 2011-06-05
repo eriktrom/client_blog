@@ -1,3 +1,9 @@
 = Blog
 
+My first git repo here on github. This gem is a rails engine that provides a blog. It's un-styled so that each app can customize the way it looks. Features planned include facebook and twitter integration. The main goal is to help my clients gain exposure and traffic through a well featured blog platform that integrates easily with a pre-existing Rails application.
+
+I don't recommend using this in your own app just yet, I am still pretty new to Ruby. Nonetheless, if anything interests you, please feel free to fork and modify.
+
+Cheers
+
 This project rocks and uses MIT-LICENSE.
