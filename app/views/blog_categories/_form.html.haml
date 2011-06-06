@@ -5,8 +5,7 @@
       = f.input :new_page_title, :label => 'Category name'
     - else
       = f.input :page_title, :label => 'Category name'
-    = f.input :description
-    = f.input :position, :input_html => {:class => 'numeric'}
+    = f.input :description, :input_html => {:class => 'h_s'}
     = render 'googles/fields', :f => f
   .actions
     = f.submit :disable_with => 'Patience is a Virtue...'

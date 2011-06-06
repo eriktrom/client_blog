@@ -1,5 +1,5 @@
--# title #when u uncomment this, change resource.name to page_title and description to meta_desc
-= admin_area do
+- og_title "Manage Blog Categories & Media"
+= admin_page_title_area do
   = link_to 'New Blog Category', new_resource_path
 %ul#blog_category_sortables.sortme
   - collection.each do |resource|
@@ -11,3 +11,6 @@
         &nbsp;|&nbsp;
         = link_to "Destroy", resource, :confirm => 'Are you sure?', :method => :delete
 = sortable_list(sort_blog_categories_path, "axis: 'y'", '#blog_category_sortables')
+
+.bottom_links
+  = link_to "All Posts", posts_index_path

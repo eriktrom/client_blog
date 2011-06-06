@@ -3,8 +3,9 @@
   - collection.each do |resource|
     %li= render :partial => resource, :as => :resource
 
-= admin_area do
-  = link_to 'New Post', new_resource_path
-  \|
-  = link_to "Manage Blog Categories", blog_categories_path
-  =# link_to "Manage Blog Media", blog_media_path
+.bottom_links
+  = admin_area do
+    = link_to 'New Post', new_resource_path
+    \|
+    = link_to "Manage Blog Categories", blog_categories_path
+    =# link_to "Manage Blog Media", blog_media_path

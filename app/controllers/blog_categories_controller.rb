@@ -1,11 +1,6 @@
 class BlogCategoriesController < InheritedResources::Base
   skip_before_filter :authenticate_admin!, :only => [:show]
   
-  def index
-    google_landing_page
-    index!
-  end
-  
   def show
     redirect_to_best_friendly_id(resource_url(resource.friendly_id)) and return
     @posts = resource.posts
@@ -18,11 +13,11 @@ class BlogCategoriesController < InheritedResources::Base
   end
   
   def create
-   create!{posts_url}
+   create!{posts_index_url}
   end
   
   def update
-    update!{posts_url}
+    update!{posts_index_url}
   end
   
   def sort

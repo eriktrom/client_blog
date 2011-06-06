@@ -8,10 +8,10 @@ Rails.application.routes.draw do
   resources :posts, :except => [:index, :show]
   
   scope :path => "/posts" do
-    get '/' => 'posts#index', :as => :posts
+    get '/' => 'posts#index', :as => :posts_index
     get '/:id' => 'blog_categories#show', :as => :blog_category_posts
     scope :path => '/:blog_category_id' do
-      get '/:id' => 'posts#show', :as => :post
+      get '/:id' => 'posts#show', :as => :post_show
       get '/:id/preview' => 'posts#preview', :as => :post_preview
     end
   end
