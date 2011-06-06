@@ -1,10 +1,10 @@
 - title
-%h1= link_to_unless_current resource.title, resource
+%h1= link_to_unless_current resource.page_title, post_path(resource.blog_category, resource)
 %p= current_page?(collection_path) ? truncate(resource.body, :length => 100, :omission => '... (continued)') : resource.body
 
 = link_to 'Edit', [:edit, resource]
 \|
-= link_to 'Destroy', resource, :confirm => 'Are you sure?', :method => :delete
+=# link_to 'Destroy', resource, :confirm => 'Are you sure?', :method => :delete
 - if current_page?(collection_path)
   \|
-  = link_to "Show", resource
+  = link_to "Show", post_path(resource.blog_category, resource)

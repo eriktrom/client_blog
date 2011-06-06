@@ -3,19 +3,34 @@
   .inputs
     .field.select.required
       = f.label :blog_category_id, "<abbr title='required'>*</abbr>Category".html_safe, :class => 'select required'
-      = f.collection_select :blog_category_id, BlogCategory.all, :id, :name, {:prompt => "Select a category"}, {:class => 'select required'}
-      or create one:
-      = f.label :new_blog_category_name, "Blog category name"
-      = f.text_field :new_blog_category_name, :class => 'string required'
-      = f.label :new_blog_category_description, "Blog category description"
-      = f.text_area :new_blog_category_description, :class => 'text required'
+      = f.collection_select :blog_category_id, BlogCategory.all, :id, :page_title, {:prompt => "Select a category"}, {:class => 'select required'}
+      or #{link_to "create one", "#", :id => 'show_hidden_new_association_fields'}:
+    #hidden_new_association_fields{:style => "display:none;"}
+      = link_to "Nevermind!", "#", :id => 'hide_hidden_new_association_fields'
+      = f.input :new_blog_category_name, :label => 'Blog category name', :required => true
+      = f.input :new_blog_category_description, :as => :text, :label => 'Blog category description', :input_html => {:class => 'required h_s'}
     - if f.object.new_record? 
       = f.input :new_page_title, :label => 'Post title'
     - else
       = f.input :page_title, :label => 'Post title'
     = f.input :author, :input_html => {:value => (Settings.default_post_author == nil ? '' : Settings.default_post_author)}
-    = f.input :body
+    = f.input :body, :input_html => {:class => 'wmd'}
     = render 'googles/fields', :f => f
   .actions
     = f.submit :disable_with => 'Patience is a Virtue...'
     = cancel_b(:back, 'Back')
+- content_for :closing_js do
+  :javascript
+    jQuery(function($) {
+      $('a#show_hidden_new_association_fields').click(function() {
+        $('#hidden_new_association_fields').show();
+        $('a#show_hidden_new_association_fields').hide();
+        return false;
+      });
+      $('a#hide_hidden_new_association_fields').click(function() {
+        $('#hidden_new_association_fields').hide();
+        $('a#show_hidden_new_association_fields').show();
+        return false;
+      });
+    });
+= wmd

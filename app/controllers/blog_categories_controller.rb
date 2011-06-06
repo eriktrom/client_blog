@@ -14,11 +14,19 @@ class BlogCategoriesController < InheritedResources::Base
   end
   
   def new
-	 new!{build_google_resource}
-	end
-	
-	def sort
-    generic_sortable(Category.scoped)
+   new!{build_google_resource}
+  end
+  
+  def create
+   create!{posts_url}
+  end
+  
+  def update
+    update!{posts_url}
+  end
+  
+  def sort
+    generic_sortable(BlogCategory.scoped)
   end
   
 end

@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   
   
+  resources :blog_categories, :except => :show do
+    post :sort, :on => :collection
+  end
+  
+  resources :posts, :except => [:index, :show]
+  
   scope :path => "/posts" do
     get '/' => 'posts#index', :as => :posts
     get '/:id' => 'blog_categories#show', :as => :blog_category_posts
@@ -10,12 +16,8 @@ Rails.application.routes.draw do
     end
   end
   
-  resources :blog_categories, :except => :show do
-    post :sort, :on => :collection
-    resources :posts, :except => [:index, :show]
-  end
 
-  
+
   # resources :categories, :path => "/#{Settings.routes.blog}" do
   #   post :sort, :on => :collection
   # end

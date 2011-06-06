@@ -19,7 +19,7 @@ class PostsController < InheritedResources::Base
   end
   
   def preview
-    redirect_to_best_friendly_id(preview_resource_url(resource.friendly_id)) and return
+    redirect_to_best_friendly_id(post_preview_url(resource.friendly_id)) and return
     google_show_page
     preview!
   end
@@ -30,7 +30,7 @@ class PostsController < InheritedResources::Base
   
   def create
     create! do |success, failure|
-      success.html{redirect_to preview_resource_url, :notice => 'Your post has been created but is not yet live on the web! Please make any necessary changes and then click publish below.'}
+      success.html{redirect_to post_preview_url(resource), :notice => 'Your post has been created but is not yet live on the web! Please make any necessary changes and then click publish below.'}
       failure.html{super}
     end
   end
