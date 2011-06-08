@@ -1,9 +1,10 @@
 - title
-= admin_resource("New Post", new_blog_category_post_path)
+= admin_page_title_area do
+  = link_to "New Post", new_post_path
 #blog_category_description
   = @blog_category.description
   = admin_area do
     = link_to 'Edit', edit_blog_category_path(@blog_category)
 %ul#posts
   - resource.posts.each do |post|
-    %li= render 'posts/post', :post => post
+    %li= render 'posts/post', :resource => post

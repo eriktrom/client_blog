@@ -11,11 +11,9 @@ class Post < ActiveRecord::Base
   
   validates_presence_of :author
   validates_presence_of :blog_category_id, :if => Proc.new{new_blog_category_name.blank?}
-  
-  private
-  
+    
   def create_blog_category_from_name
-    create_blog_category(:name => new_blog_category_name, :google_attributes => {:meta_title => new_blog_category_name, :page_title => new_blog_category_name, :meta_desc => new_blog_category_description}) if new_blog_category_name.present?
+    create_blog_category(:new_page_title => new_blog_category_name, :description => new_blog_category_description) if new_blog_category_name.present?
   end
   
 end
