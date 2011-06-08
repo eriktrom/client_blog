@@ -3,6 +3,7 @@ class Post < ActiveRecord::Base
   attr_accessor :new_blog_category_name, :new_blog_category_description
   include Imageable
   include Videoable
+  include Audioable
   include Googleable
   before_save :create_blog_category_from_name
   default_scope order('posts.date_of_publish').includes([:google])

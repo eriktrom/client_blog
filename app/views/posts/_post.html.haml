@@ -1,3 +1,5 @@
+= admin_page_title_area do
+  = link_to "Back to All Posts", posts_index_path
 %h1= link_to_unless_current resource.page_title, post_show_path(resource.blog_category, resource)
 %p= current_page?(collection_path) ? truncate(resource.body, :length => 100, :omission => '... (continued)') : resource.body
 = admin_area do
