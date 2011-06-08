@@ -1,8 +1,16 @@
 GIT
   remote: git://github.com/etrom/modulitis.git
-  revision: aebc84bf7e4048f478785c1727a49807d6159d0a
+  revision: a3b6798fb0c8e15b85a5b3fd4cf4022276bf135a
+  branch: develop
   specs:
     modulitis (0.0.1)
+
+GIT
+  remote: git://github.com/etrom/searchable.git
+  revision: 6a12ce3bd6755566bc39f952ae813892e1c30768
+  branch: develop
+  specs:
+    searchable (0.0.1)
 
 GEM
   remote: http://rubygems.org/
@@ -125,5 +133,6 @@ DEPENDENCIES
   paperclip
   rails (= 3.0.7)
   rake (= 0.8.7)
+  searchable!
   simple_form
   sqlite3

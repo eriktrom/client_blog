@@ -1,4 +1,4 @@
-= simple_form_for(@post) do |f|
+= simple_form_for(@post, :html => {:multipart => true}) do |f|
   = render 'shared/error_messages', :target => @post
   .inputs
     .field.select.required
@@ -15,6 +15,8 @@
       = f.input :page_title, :label => 'Post title'
     = f.input :author, :input_html => {:value => (Settings.default_post_author == nil ? '' : Settings.default_post_author)}
     = f.input :body, :input_html => {:class => 'wmd'}
+    = render 'images/fields', :f => f
+    = render 'videos/fields', :f => f
     = render 'googles/fields', :f => f
   .actions
     = f.submit :disable_with => 'Patience is a Virtue...'

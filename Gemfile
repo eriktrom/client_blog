@@ -11,7 +11,8 @@ gem 'haml-rails'
 gem "simple_form"
 gem "friendly_id", "~> 3.2.1"
 
-gem 'modulitis', :git => 'git://github.com/etrom/modulitis.git'
+gem 'modulitis', :git => 'git://github.com/etrom/modulitis.git', :branch => 'develop'
+gem 'searchable', :git => 'git://github.com/etrom/searchable.git', :branch => 'develop'
 
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
 # gem 'ruby-debug'

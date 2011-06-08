@@ -1,13 +1,15 @@
 class Post < ActiveRecord::Base
   belongs_to :blog_category
   attr_accessor :new_blog_category_name, :new_blog_category_description
-  before_save :create_blog_category_from_name
+  include Imageable
+  include Videoable
   include Googleable
+  before_save :create_blog_category_from_name
   default_scope order('posts.date_of_publish').includes([:google])
   scope :published, where(:publish => true)
   
   validates_presence_of :author
-  validates_presence_of :blog_category, :if => Proc.new{new_blog_category_name.blank?}
+  validates_presence_of :blog_category_id, :if => Proc.new{new_blog_category_name.blank?}
   
   private
   
