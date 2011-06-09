@@ -1,0 +1,11 @@
+= admin_page_title_area do
+  = link_to "New Post", new_post_path
+  \|
+  = link_to_unless_current "Back to All Posts", posts_index_path
+  - if local_assigns.has_key?(:resource) 
+    \|
+    = link_to_unless_current "Back to #{resource.blog_category.page_title} Posts", blog_category_posts_path(resource.blog_category)
+  \|
+  = link_to 'New Blog Category', new_resource_path
+  \|
+  = link_to_unless_current "Manage Blog Categories", blog_categories_path

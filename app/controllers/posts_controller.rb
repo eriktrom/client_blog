@@ -1,11 +1,19 @@
 class PostsController < InheritedResources::Base
   skip_before_filter :authenticate_admin!, :only => [:index, :show]
-  custom_actions :resource => :preview
+  custom_actions :resource => :preview, :collection => :tag
   
   def index
     google_landing_page
     add_breadcrumb @google.page_title, :collection_path
+    @tags = collection.tag_counts_on(:tags)
     index!
+  end
+  
+  def tag
+    @tag = params[:tag]
+    @tags = collection.tag_counts_on(:tags)
+    @posts = collection.tagged_with(@tag, :any => true)
+    tag!
   end
   
   def show

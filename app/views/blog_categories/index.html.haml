@@ -1,10 +1,9 @@
-- og_title "Manage Blog Categories & Media"
-= admin_page_title_area do
-  = link_to 'New Blog Category', new_resource_path
+- og_title "Manage Categories & Media"
+= render 'posts/admin_links'
 %ul#blog_category_sortables.sortme
   - collection.each do |resource|
-    %li#sortable{:id => resource.id}
-      %h2= link_to resource.name, resource
+    %li#sortable{:id => resource.id, :style => 'cursor:move;'}
+      %h2= link_to resource.page_title, blog_category_posts_path(resource)
       %p= resource.description
       = admin_area do
         = link_to "Edit", [:edit, resource]

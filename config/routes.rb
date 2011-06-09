@@ -5,7 +5,9 @@ Rails.application.routes.draw do
     post :sort, :on => :collection
   end
   
-  resources :posts, :except => [:index, :show]
+  resources :posts, :except => [:index, :show] do
+    get :tag, :on => :collection
+  end
   
   scope :path => "/posts" do
     get '/' => 'posts#index', :as => :posts_index

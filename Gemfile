@@ -14,6 +14,10 @@ gem "friendly_id", "~> 3.2.1"
 gem 'modulitis', :git => 'git://github.com/etrom/modulitis.git', :branch => 'develop'
 gem 'searchable', :git => 'git://github.com/etrom/searchable.git', :branch => 'develop'
 
+gemspec
+
+# gem 'acts-as-taggable-on' # then run 'rails generate acts_as_taggable_on:migration' in the parent app (not this app, the app this gem(blog) is included in)
+
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
 # gem 'ruby-debug'
 # gem 'ruby-debug19'
