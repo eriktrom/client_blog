@@ -1,6 +1,7 @@
 class PostsController < InheritedResources::Base
   skip_before_filter :authenticate_admin!, :only => [:index, :show]
   custom_actions :resource => :preview, :collection => :tag
+  respond_to :html, :js, :atom
   
   def index
     google_landing_page
