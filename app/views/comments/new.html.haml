@@ -1,0 +1,5 @@
+%ul#comments= render @comment.parent, :resource => parent, :comment => @comment
+%h1 Comment Reply
+= render 'form', :comment => @comment
+
+= link_to 'Back', :back

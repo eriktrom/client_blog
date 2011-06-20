@@ -1,5 +1,6 @@
 class Post < ActiveRecord::Base
   belongs_to :blog_category
+  has_many :comments, :as => :commentable
   attr_accessor :new_blog_category_name, :new_blog_category_description
   include Imageable
   include Videoable

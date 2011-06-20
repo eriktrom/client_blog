@@ -1,0 +1,7 @@
+= simple_form_for([parent, comment]) do |f|
+  = render 'shared/error_messages', :target => comment
+  = f.hidden_field :parent_id
+  .inputs
+    = f.input :body, :label => 'Leave a Comment', :input_html => {:class => 'h_m'}
+  .actions
+    = f.submit :disable_with => 'Patience is a Virtue...'

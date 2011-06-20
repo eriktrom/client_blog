@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   
   resources :posts, :except => [:index, :show] do
     get :tag, :on => :collection
+    resources :comments, :except => [:index, :show]
   end
   
   scope :path => "/posts" do

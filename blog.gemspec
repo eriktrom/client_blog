@@ -8,5 +8,6 @@ Gem::Specification.new do |s|
   s.version = "0.0.1"
   
   s.add_dependency 'acts-as-taggable-on'
+  s.add_dependency 'ancestry'
   
 end

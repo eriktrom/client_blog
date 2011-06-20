@@ -1,0 +1,7 @@
+%li
+  .body= comment.body
+  = admin_area do
+    = link_to 'Edit', [:edit, resource, comment]
+    \|
+    = link_to 'Destroy', [resource, comment], :confirm => 'Are you sure?', :method => :delete
+  .reply= link_to "Reply", new_post_comment_path(resource, :parent_id => comment)
