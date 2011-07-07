@@ -35,7 +35,7 @@
           .available_audios.each_media
             %h2.media_title Main Text Audios
             = content_tag(:div, (render 'audios/audios', :resource => f.object, :hide_admin_for_form => true), :class => 'audios')
-    = f.input :body, :input_html => {:class => 'wmd liquidized'}, :wrapper_html => {:class => 'maintext'}
+    = f.input :body, :input_html => {:class => 'wmd'}, :wrapper_html => {:class => 'maintext'}
     - unless f.object.new_record?
       .attachable_media
         .available_images.each_media
@@ -53,7 +53,7 @@
         -#.available_audios.each_media
           -#%h2.media_title Side Text Audios
           -#= content_tag(:div, (render 'audios/audios', :resource => f.object), :class => 'audios') if f.object.audios.any?
-    = f.input :sidetext, :input_html => {:class => 'wmd h_l liquidized'}, :wrapper_html => {:class => 'sidetext'}
+    = f.input :sidetext, :input_html => {:class => 'wmd h_l'}, :wrapper_html => {:class => 'sidetext'}
     = render 'images/fields', :f => f
     = render 'videos/fields', :f => f
     = render 'audios/fields', :f => f
@@ -62,9 +62,8 @@
     = f.input :media_list, :label => 'Media types', :hint => 'Enter media types regarding this post. It\'s similar to the tags you entered above but regarding media'
   .actions
     = f.submit :disable_with => 'Patience is a Virtue...'
+    = f.submit 'Submit and Return', :disable_with => 'Double the patience!'
     = cancel_b(:back, 'Back')
-- content_for :include_js do
-  = javascript_include_tag 'jquery.zclip.min'
 - content_for :closing_js do
   :javascript
     jQuery(function($) {
@@ -78,30 +77,17 @@
         $('a#show_hidden_new_association_fields').show();
         return false;
       });
-            
       // liquid templates
-      $('.attachable_media .liquid_code pre').click(function() {
+      $('.attachable_media .liquid_code pre').bind('mouseover', function() {
         var $clonedCopy = $(this).clone();
         var clonedText = $clonedCopy.text();        
         $(this).zclip({
-                path:'/javascripts/ZeroClipboard.swf',
-                copy:clonedText,
-                afterCopy:function(){
-                            $(this).effect("highlight", {}, 2500);
-                        }
-            });
-        // var $clonedCopy = $(this).clone();
-        // var clonedText = $clonedCopy.text();
-        // var $textArea = $('textarea.liquidized');
-        // var $textArea = $('textarea#post_body');
-        // $textArea.text('').prepend(clonedText);
-      });
-      
-      // $('a#copy-description').zclip({
-      // $('.attachable_media .liquid_code pre').zclip({
-      //         path:'/javascripts/ZeroClipboard.swf',
-      //         copy:$(this).text()
-      //     });
-      
+          path:'/javascripts/ZeroClipboard.swf',
+          copy:clonedText,
+          afterCopy:function(){
+            $(this).effect("highlight", {}, 2500);
+          }
+        });
+      });      
     });
 = wmd

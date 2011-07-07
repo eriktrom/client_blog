@@ -39,7 +39,13 @@ class PostsController < InheritedResources::Base
   
   def create
     create! do |success, failure|
-      success.html{redirect_to post_preview_url(resource.blog_category, resource), :notice => 'Your post has been created but is not yet live on the web! Please make any necessary changes and then click publish below.'}
+      success.html do
+        if params[:commit] == 'Submit and Return'
+          redirect_to :back, :notice => 'Your assets have been saved. You may now add them to the appropriate text areas.'
+        else
+          redirect_to post_preview_url(resource.blog_category, resource), :notice => 'Your post has been created but is not yet live on the web! Please make any necessary changes and then click publish below.'
+        end
+      end
       failure.html{super}
     end
   end
@@ -49,7 +55,15 @@ class PostsController < InheritedResources::Base
       resource.update_attributes(:publish => true, :date_of_publish => Time.zone.now)
       redirect_to post_show_url(resource.blog_category, resource), :notice => 'Your post has now been published. Good job!'
     else
-      update!{post_show_url(resource.blog_category, resource)}
+      update! do |success, failure|
+        success.html do
+          if params[:commit] == 'Submit and Return'
+            redirect_to :back, :notice => 'Your assets have been saved. You may now add them to the appropriate text areas.'
+          else
+            redirect_to post_show_url(resource.blog_category, resource), :notice => 'The article has been updated'
+          end
+        end
+      end
     end
   end
   
