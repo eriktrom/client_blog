@@ -1,3 +1,4 @@
+- body_class "blog_form"
 = simple_form_for(@post, :html => {:multipart => true}) do |f|
   = render 'shared/error_messages', :target => @post
   .inputs
@@ -7,14 +8,45 @@
       or #{link_to "create one", "#", :id => 'show_hidden_new_association_fields'}:
     #hidden_new_association_fields{:style => "display:none;"}
       = link_to "Nevermind!", "#", :id => 'hide_hidden_new_association_fields'
-      = f.input :new_blog_category_name, :label => 'Blog category name', :required => true
+      = f.input :new_blog_category_name, :label => 'Blog category name', :input_html => {:class => 'select required'} #, :required => true # enabling this prevents form submission on chrome, firefox 4+
       = f.input :new_blog_category_description, :as => :text, :label => 'Blog category description', :input_html => {:class => 'required h_s'}
     - if f.object.new_record? 
       = f.input :new_page_title, :label => 'Post title'
     - else
       = f.input :page_title, :label => 'Post title'
     = f.input :author, :input_html => {:value => (Settings.default_post_author == nil ? '' : Settings.default_post_author)}
-    = f.input :body, :input_html => {:class => 'wmd'}
+    - unless f.object.new_record?
+      .attachable_media
+        .available_images.each_media
+          %h2.media_title Main Text Images:
+          - f.object.images.each do |image|
+            .image
+              = render 'images/only_image', :image => image, :style => :blog_maintext
+        .available_videos.each_media
+          %h2.media_title Main Text Videos
+          - f.object.videos.each do |video|
+            .video.maintext
+              = render 'videos/only_video', :video => video, :style => :blog_maintext
+        .available_audios.each_media
+          %h2.media_title Main Text Audios
+          = content_tag(:div, (render 'audios/audios', :resource => f.object, :hide_admin_for_form => true), :class => 'audios') if f.object.audios.any?
+    = f.input :body, :input_html => {:class => 'wmd'}, :wrapper_html => {:class => 'maintext'}
+    - unless f.object.new_record?
+      .attachable_media
+        .available_images.each_media
+          %h2.media_title Side Text Images:
+          - f.object.images.each do |image|
+            .image
+              = render 'images/only_image', :image => image, :style => :blog_sidetext
+        -#.available_videos.each_media
+          -#%h2.media_title Side Text Videos:
+          -#- f.object.videos.each do |video|
+            -#.video.sidetext
+              -#= render 'videos/only_video', :video => video, :style => :blog_sidetext
+        -#.available_audios.each_media
+          -#%h2.media_title Side Text Audios
+          -#= content_tag(:div, (render 'audios/audios', :resource => f.object), :class => 'audios') if f.object.audios.any?
+    = f.input :sidetext, :input_html => {:class => 'wmd h_l'}, :wrapper_html => {:class => 'sidetext'}
     = render 'images/fields', :f => f
     = render 'videos/fields', :f => f
     = render 'audios/fields', :f => f

@@ -3,6 +3,6 @@ class BlogCategory < ActiveRecord::Base
   include Listable
   include GoogleableCreatedThroughAssociation
   
-  default_scope order('blog_categories.position')
+  default_scope order('blog_categories.position').includes(:google)
   
 end
