@@ -22,15 +22,20 @@
           - f.object.images.each do |image|
             .image
               = render 'images/only_image', :image => image, :style => :blog_maintext
+              .liquid_code
+                %pre= image.liquid_usage_helper('large_image')
         .available_videos.each_media
           %h2.media_title Main Text Videos
           - f.object.videos.each do |video|
             .video.maintext
               = render 'videos/only_video', :video => video, :style => :blog_maintext
-        .available_audios.each_media
-          %h2.media_title Main Text Audios
-          = content_tag(:div, (render 'audios/audios', :resource => f.object, :hide_admin_for_form => true), :class => 'audios') if f.object.audios.any?
-    = f.input :body, :input_html => {:class => 'wmd'}, :wrapper_html => {:class => 'maintext'}
+              .liquid_code
+                %pre= video.liquid_usage_helper('large_video_player')
+        - if f.object.audios.any?
+          .available_audios.each_media
+            %h2.media_title Main Text Audios
+            = content_tag(:div, (render 'audios/audios', :resource => f.object, :hide_admin_for_form => true), :class => 'audios')
+    = f.input :body, :input_html => {:class => 'wmd liquidized'}, :wrapper_html => {:class => 'maintext'}
     - unless f.object.new_record?
       .attachable_media
         .available_images.each_media
@@ -38,6 +43,8 @@
           - f.object.images.each do |image|
             .image
               = render 'images/only_image', :image => image, :style => :blog_sidetext
+              .liquid_code
+                %pre= image.liquid_usage_helper('small_image')
         -#.available_videos.each_media
           -#%h2.media_title Side Text Videos:
           -#- f.object.videos.each do |video|
@@ -46,7 +53,7 @@
         -#.available_audios.each_media
           -#%h2.media_title Side Text Audios
           -#= content_tag(:div, (render 'audios/audios', :resource => f.object), :class => 'audios') if f.object.audios.any?
-    = f.input :sidetext, :input_html => {:class => 'wmd h_l'}, :wrapper_html => {:class => 'sidetext'}
+    = f.input :sidetext, :input_html => {:class => 'wmd h_l liquidized'}, :wrapper_html => {:class => 'sidetext'}
     = render 'images/fields', :f => f
     = render 'videos/fields', :f => f
     = render 'audios/fields', :f => f
@@ -56,6 +63,8 @@
   .actions
     = f.submit :disable_with => 'Patience is a Virtue...'
     = cancel_b(:back, 'Back')
+- content_for :include_js do
+  = javascript_include_tag 'jquery.zclip.min'
 - content_for :closing_js do
   :javascript
     jQuery(function($) {
@@ -69,5 +78,30 @@
         $('a#show_hidden_new_association_fields').show();
         return false;
       });
+            
+      // liquid templates
+      $('.attachable_media .liquid_code pre').click(function() {
+        var $clonedCopy = $(this).clone();
+        var clonedText = $clonedCopy.text();        
+        $(this).zclip({
+                path:'/javascripts/ZeroClipboard.swf',
+                copy:clonedText,
+                afterCopy:function(){
+                            $(this).effect("highlight", {}, 2500);
+                        }
+            });
+        // var $clonedCopy = $(this).clone();
+        // var clonedText = $clonedCopy.text();
+        // var $textArea = $('textarea.liquidized');
+        // var $textArea = $('textarea#post_body');
+        // $textArea.text('').prepend(clonedText);
+      });
+      
+      // $('a#copy-description').zclip({
+      // $('.attachable_media .liquid_code pre').zclip({
+      //         path:'/javascripts/ZeroClipboard.swf',
+      //         copy:$(this).text()
+      //     });
+      
     });
 = wmd
