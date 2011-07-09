@@ -3,7 +3,6 @@ class BlogCategoriesController < InheritedResources::Base
   
   def show
     redirect_to_best_friendly_id(blog_category_posts_path(resource.friendly_id)) and return
-    @posts = resource.posts
     google_landing_page('Post')
     add_breadcrumb @google.page_title, :posts_index_path
     google_show_page
@@ -25,6 +24,16 @@ class BlogCategoriesController < InheritedResources::Base
   
   def sort
     generic_sortable(BlogCategory.scoped)
+  end
+  
+  protected
+  
+  def collection
+    if action_name == 'show'
+      @collection ||= resource.posts
+    else
+      super
+    end
   end
   
 end

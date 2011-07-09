@@ -1,0 +1,6 @@
+.body= comment.body
+= admin_area do
+  = link_to 'Edit', [:edit, resource, comment], :remote => true
+  \|
+  = link_to 'Destroy', [resource, comment], :confirm => 'Are you sure?', :method => :delete
+= reply_link(resource, comment)

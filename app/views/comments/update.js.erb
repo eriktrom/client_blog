@@ -1,0 +1,2 @@
+$ = jQuery
+$('#comment_<%= resource.id %>').html('<%= raw escape_javascript(render 'comments/comment_body', :comment => resource, :resource => parent) %>');

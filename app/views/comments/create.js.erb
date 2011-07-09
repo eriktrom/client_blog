@@ -1,0 +1,2 @@
+$('#reply_to_<%= @parent_id %>').replaceWith('<%= raw reply_link(parent, @parent_id) %>');
+$('#comment_<%= @parent_id %>').next('.nested_comments').append('<%= raw escape_javascript(render('comments/comment', :comment => resource, :resource => parent) + content_tag(:div, '', :class => 'nested_comments')) %>');

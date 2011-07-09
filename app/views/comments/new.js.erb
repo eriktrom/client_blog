@@ -1,0 +1,2 @@
+$ = jQuery
+$('#comment_<%= @reply_to_comment.id %> .reply').replaceWith('<div id=\'reply_to_<%= @reply_to_comment.id %>\'><%= raw escape_javascript(render 'comments/form', :comment => @comment, :parent => parent) %></div>');

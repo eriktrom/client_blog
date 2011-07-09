@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     resources :comments, :except => [:index, :show]
   end
   
-  scope :path => "/posts" do
+  scope :path => "/#{Settings.routes.blog}" do
     get '/' => 'posts#index', :as => :posts_index
     get '/:id' => 'blog_categories#show', :as => :blog_category_posts
     scope :path => '/:blog_category_id' do
@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     end
   end
   
+  
+  match '/posts' => redirect("/#{Settings.routes.blog}")
 
 
   # resources :categories, :path => "/#{Settings.routes.blog}" do

@@ -9,7 +9,7 @@ class Post < ActiveRecord::Base
   acts_as_taggable
   acts_as_taggable_on :medias
   before_save :create_blog_category_from_name
-  default_scope order('posts.date_of_publish').includes([:google, :blog_category, :tags, :comments])
+  default_scope order('posts.date_of_publish').includes([:google, :blog_category, :tags, :comments, :audios])
   scope :published, where(:publish => true)
   
   

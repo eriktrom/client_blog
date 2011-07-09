@@ -1,7 +1,11 @@
-= simple_form_for([parent, comment]) do |f|
+= simple_form_for([parent, comment], :remote => true) do |f|
   = render 'shared/error_messages', :target => comment
   = f.hidden_field :parent_id
   .inputs
     = f.input :body, :label => 'Leave a Comment', :input_html => {:class => 'h_m'}
   .actions
     = f.submit :disable_with => 'Patience is a Virtue...'
+    - if action_name == 'new' 
+      = cancel_b_method("reply_to_#{@reply_to_comment.id}", "#{reply_link(parent, @reply_to_comment)}")
+    - if action_name == 'edit'
+      = cancel_b_function("comment_#{comment.id}", 'comments/comment_body', :resource => parent, :comment => comment)

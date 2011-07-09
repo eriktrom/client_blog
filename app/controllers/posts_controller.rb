@@ -5,7 +5,7 @@ class PostsController < InheritedResources::Base
   
   def index
     google_landing_page
-    add_breadcrumb @google.page_title, :collection_path
+    add_breadcrumb @google.page_title, :posts_index_path
     @tags = collection.tag_counts_on(:tags)
     index!
   end
@@ -86,7 +86,11 @@ class PostsController < InheritedResources::Base
     add_breadcrumb @google.page_title, blog_category_posts_path(resource.blog_category)
     google_show_page
     add_breadcrumb @google.page_title, custom_page_path
-    @comment = Comment.new(:commentable_type => resource_class, :commentable_id => resource.id)
+    # @comment = Comment.new(:commentable_type => resource_class, :commentable_id => resource.id)
+  end
+  
+  def collection_path
+    posts_index_path
   end
   
 end
