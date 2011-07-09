@@ -1,2 +1,7 @@
-$('#reply_to_<%= @parent_id %>').replaceWith('<%= raw reply_link(parent, @parent_id) %>');
-$('#comment_<%= @parent_id %>').next('.nested_comments').append('<%= raw escape_javascript(render('comments/comment', :comment => resource, :resource => parent) + content_tag(:div, '', :class => 'nested_comments')) %>');
+<% if @parent_id.present? %>
+  $('#reply_to_<%= @parent_id %>').replaceWith('<%= raw reply_link(parent, @parent_id) %>');
+  $('#comment_<%= @parent_id %>').next('.nested_comments').append('<%= raw escape_javascript(comment_with_empty_nest(resource, parent)) %>');
+<% else %>
+  $('#new_comment').replaceWith('<%= raw escape_javascript(render 'comments/form', :comment => Comment.new(:commentable_type => parent_class, :commentable_id => parent.id), :parent => parent) %>')
+  $('#comments').append('<%= raw escape_javascript(comment_with_empty_nest(resource, parent)) %>')
+<% end -%>

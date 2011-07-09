@@ -1,4 +1,6 @@
 class CommentsController < InheritedResources::Base
+  skip_before_filter :authenticate_admin!, :except => [:destroy]
+  
   actions :all, :except => [:index, :show]
   belongs_to :post, :polymorphic => true
   respond_to :html, :js
