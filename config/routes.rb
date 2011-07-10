@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   
   resources :posts, :except => [:index, :show] do
     get :tag, :on => :collection
-    resources :comments, :except => [:index, :show]
+    resources :comments, :except => [:show]
   end
   
   scope :path => "/#{Settings.routes.blog}" do
@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   
   
   match '/posts' => redirect("/#{Settings.routes.blog}")
+  
 
 
   # resources :categories, :path => "/#{Settings.routes.blog}" do
