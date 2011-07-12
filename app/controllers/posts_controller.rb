@@ -41,7 +41,7 @@ class PostsController < InheritedResources::Base
     create! do |success, failure|
       success.html do
         if params[:commit] == 'Submit and Return'
-          redirect_to :back, :notice => 'Your assets have been saved. You may now add them to the appropriate text areas.'
+          redirect_to edit_resource_url, :notice => 'Your assets have been saved. You may now add them to the appropriate text areas.'
         else
           redirect_to post_preview_url(resource.blog_category, resource), :notice => 'Your post has been created but is not yet live on the web! Please make any necessary changes and then click publish below.'
         end

@@ -1,13 +1,16 @@
 $ = jQuery
-$('#disqus_thread').remove();
+$('#disqus_thread').remove(); // remove this in favor of a working version of the next two lines
+  // The following line won't work but something similiar needs to be implemented when a comment form already exists, replace it with the link can be clicked later, the following line would just get replace it with the same link that was kjust clicked
+  // $('#disqus_thread').replaceWith('<%= raw escape_javascript(link_to "View Comments", post_comments_path(parent), :remote => true, :id => "link_to_view_comments_for_post_#{parent.id}") %>');
 $('#link_to_view_comments_for_post_<%= parent.id %>').replaceWith('<div id="disqus_thread"></div>');
-var disqus_shortname = '<%= Settings.disqus.shortname %>';
-var disqus_identifier = '<%= parent_path %>'; // use parent path so that its only unique to the post itself.. This way categories can change and the comments can go with them...
-var disqus_url = '<%= post_show_path(parent.blog_category, parent) %>'; // here if the url changes, the system will redirect automatically
-var disqus_title = '<%= parent.page_title %>';
-<% if Rails.env.development? %>
-  // var disqus_developer = 1;
-<% end %>
+// var disqus_shortname = '<%= Settings.disqus.shortname %>';
+// var disqus_identifier = '<%= parent_path %>'; // use parent path so that its only unique to the post itself.. This way categories can change and the comments can go with them...
+// var disqus_url = '<%= post_show_path(parent.blog_category, parent) %>'; // here if the url changes, the system will redirect automatically
+// var disqus_title = '<%= parent.page_title %>';
+// <%# if Rails.env.development? %>
+//   var disqus_developer = 1;
+// <%# end %>
+<%= disqus_comments(parent, parent_path) %>
 (function() {
   var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
   dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
