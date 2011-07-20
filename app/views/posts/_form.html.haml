@@ -36,24 +36,6 @@
             %h2.media_title Main Text Audios
             = content_tag(:div, (render 'audios/audios', :resource => f.object, :hide_admin_for_form => true), :class => 'audios')
     = f.input :body, :input_html => {:class => 'wmd'}, :wrapper_html => {:class => 'maintext'}
-    - unless f.object.new_record?
-      .attachable_media
-        .available_images.each_media
-          %h2.media_title Side Text Images:
-          - f.object.images.each do |image|
-            .image
-              = render 'images/only_image', :image => image, :style => :blog_sidetext
-              .liquid_code
-                %pre= image.liquid_usage_helper('small_image')
-        -#.available_videos.each_media
-          -#%h2.media_title Side Text Videos:
-          -#- f.object.videos.each do |video|
-            -#.video.sidetext
-              -#= render 'videos/only_video', :video => video, :style => :blog_sidetext
-        -#.available_audios.each_media
-          -#%h2.media_title Side Text Audios
-          -#= content_tag(:div, (render 'audios/audios', :resource => f.object), :class => 'audios') if f.object.audios.any?
-    = f.input :sidetext, :input_html => {:class => 'wmd h_l'}, :wrapper_html => {:class => 'sidetext'}
     = render 'images/fields', :f => f
     = render 'videos/fields', :f => f
     = render 'audios/fields', :f => f
