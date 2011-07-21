@@ -14,7 +14,7 @@
       = f.input :new_page_title, :label => 'Post title'
     - else
       = f.input :page_title, :label => 'Post title'
-    = f.input :subtitle
+    =# f.input :subtitle
     = f.input :author, :input_html => {:value => (Settings.default_post_author == nil ? '' : Settings.default_post_author)}
     - unless f.object.new_record?
       .attachable_media
