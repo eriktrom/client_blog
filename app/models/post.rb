@@ -29,10 +29,10 @@ class Post < ActiveRecord::Base
       if objects.any?
         objects.each_with_index do |object, n|
           post.class.class_eval do 
-            define_method :"#{object.class.to_s.downcase}_#{n + 1}" do
+            define_method :"#{object.class.to_s.downcase}_#{object.id}" do
               object.id
             end
-            self.send(:liquid_methods, :"#{object.class.to_s.downcase}_#{n + 1}")
+            self.send(:liquid_methods, :"#{object.class.to_s.downcase}_#{object.id}")
           end
         end
       end
