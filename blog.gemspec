@@ -2,6 +2,7 @@
 # project in your rails apps through git.
 Gem::Specification.new do |s|
   s.name = "blog"
+  s.authors = "Erik Trom"
   s.summary = "Insert Blog summary."
   s.description = "Insert Blog description."
   s.files = Dir["{app,lib,config}/**/*"] + ["MIT-LICENSE", "Rakefile", "Gemfile", "README.rdoc"]

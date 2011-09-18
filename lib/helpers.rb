@@ -20,7 +20,7 @@ module Blog
       x = raw(%(
         var disqus_shortname = '#{Settings.disqus.shortname}';
         var disqus_identifier = '#{parent_path}'; // use parent path so that its only unique to the post itself.. This way categories can change and the comments can go with them...
-        var disqus_url = '#{post_show_path(parent.blog_category, parent)}'; // here if the url changes, the system will redirect automatically
+        var disqus_url = '#{post_show_url(parent.blog_category, parent, :host => Settings.host)}'; // here if the url changes, the system will redirect automatically
         var disqus_title = '#{parent.page_title}';
         var disqus_developer = #{developer};
       ))
