@@ -1,5 +1,0 @@
-= render 'posts/admin_links'
-= render 'posts/tag_cloud'
-%ul#sortables.sortme
-  - collection.each do |resource|
-    %li= render :partial => resource, :as => :resource

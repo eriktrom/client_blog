@@ -1,5 +1,6 @@
 module Blog
   module ApplicationHelper
+    include ActsAsTaggableOn::TagsHelper
 
     def nested_comments(comments, resource)
       comments.map do |comment, sub_comments|

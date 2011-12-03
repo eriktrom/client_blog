@@ -6,12 +6,13 @@ Rails.application.routes.draw do
   end
   
   resources :posts, :except => [:index, :show] do
-    get :tag, :on => :collection
     resources :comments, :except => [:show]
   end
   
   scope :path => "/#{Settings.routes.blog}" do
     get '/' => 'posts#index', :as => :posts_index
+    get "archive/:year(/:month)" => "posts#archive", :as => :archived_posts#, :constraints => { :year => /\d{4}/, :month => /\d{2}/ }
+    get 'tags/:tag' => 'posts#tag', :as => :tagged_posts
     get '/:id' => 'blog_categories#show', :as => :blog_category_posts
     scope :path => '/:blog_category_id' do
       get '/:id' => 'posts#show', :as => :post_show
@@ -21,15 +22,5 @@ Rails.application.routes.draw do
   
   
   match '/posts' => redirect("/#{Settings.routes.blog}")
-  
-
-
-  # resources :categories, :path => "/#{Settings.routes.blog}" do
-  #   post :sort, :on => :collection
-  # end
-  # scope :path => "/#{Settings.routes.blog}/:category_id" do
-  #   get '/:id' => 'posts#show', :as => :category_post
-  #   get '/:id/preview' => 'posts#preview', :as => :category_post_preview
-  # end
   
 end

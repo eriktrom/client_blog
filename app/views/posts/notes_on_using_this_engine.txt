@@ -1,0 +1,12 @@
+The rest of the view files for this rails engine are located in lynnfellman.
+For the most part you can bring those files into this engine 'as-is'. The
+only caveat is that they reference a - show_sidebar helper located in her 
+application helpers and layout view file. Of course the css is needed as well.
+Finally, you must generate the migration file and have polymorphihc resources
+setup for googlable, imageable, videoable and audioable. But that should do it.
+
+Also, the .gemspec file does not containt all the gems needed to use this blog
+in another app. 
+
+Very lastly, the application controller has two expose methods that are being 
+referenced in the posts_controller, so you'll need those as well.

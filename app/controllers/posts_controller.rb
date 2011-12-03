@@ -1,20 +1,38 @@
 class PostsController < InheritedResources::Base
-  skip_before_filter :authenticate_admin!, :only => [:index, :show, :preview]
-  custom_actions :resource => :preview, :collection => :tag
+  skip_before_filter :authenticate_admin!, :only => [:index, :show, :preview, :archive, :tag]
+  custom_actions :resource => :preview, :collection => [:tag, :archive]
   respond_to :html, :js, :atom
   
   def index
     google_landing_page
     add_breadcrumb @google.page_title, :posts_index_path
-    @tags = collection.tag_counts_on(:tags)
     index!
   end
   
   def tag
-    @tag = params[:tag]
-    @tags = collection.tag_counts_on(:tags)
-    @posts = collection.tagged_with(@tag, :any => true)
-    tag!
+    self.class.class_eval do
+      define_method :collection do
+        posts_collection.tagged_with(params[:tag], :any => true)
+      end
+    end
+    google_landing_page('Tags')
+    add_breadcrumb "#{Google.where(:googleable_type => 'Post', :googleable_id => nil).first.page_title}", :posts_index_path
+    add_breadcrumb "#{@google.page_title} '#{params[:tag]}'", tagged_posts_path(params[:tag])
+    tag!{render 'posts/index' and return}
+  end
+  
+  def archive
+    self.class.class_eval do
+      define_method :collection do
+        Post.get_requested_archive(posts_collection, {:year => params[:year], :month => params[:month]})
+      end
+    end
+    google_landing_page('Archive')
+    breadcrumb_path = params[:month].present? ? {:year => params[:year], :month => params[:month]} : params[:year]
+    breadcrumb_path_date = params[:month].present? ? DateTime.new(params[:year].to_i, params[:month].to_i).to_s(:breadcrumb_month_and_year) : DateTime.new(params[:year].to_i).to_s(:year)
+    add_breadcrumb "#{Google.where(:googleable_type => 'Post', :googleable_id => nil).first.page_title}", :posts_index_path
+    add_breadcrumb "#{@google.page_title} for #{breadcrumb_path_date}", archived_posts_path(breadcrumb_path)
+    archive!{render 'posts/index' and return}
   end
   
   def show
@@ -70,11 +88,7 @@ class PostsController < InheritedResources::Base
   protected
   
   def collection
-    if admin?
-      super.scoped
-    else
-      super.published
-    end
+    posts_collection
   end
   
   private
