@@ -2,6 +2,7 @@ class PostsController < InheritedResources::Base
   skip_before_filter :authenticate_admin!, :only => [:index, :show, :preview, :archive, :tag]
   custom_actions :resource => :preview, :collection => [:tag, :archive]
   respond_to :html, :js, :atom
+  cache_sweeper :post_sweeper, :only => [:create, :update, :destroy] # don't need this, it's built on observers
   
   def index
     google_landing_page

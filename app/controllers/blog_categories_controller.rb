@@ -1,5 +1,6 @@
 class BlogCategoriesController < InheritedResources::Base
   skip_before_filter :authenticate_admin!, :only => [:show]
+  cache_sweeper :post_sweeper, :only => [:create, :update, :destroy] # don't need this, it's built on observers
   
   def show
     redirect_to_best_friendly_id(blog_category_posts_path(resource.friendly_id)) and return

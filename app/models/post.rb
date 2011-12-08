@@ -50,13 +50,36 @@ class Post < ActiveRecord::Base
     collection.where(:date_of_publish => archive_range)
   end
   
+  def self.cached_requested_archive_count(collection, date)
+    Rails.cache.fetch "Post.cached_requested_archive_count_#{self.my_cache_key(date)}" do
+      self.get_requested_archive(collection, date).count
+    end
+  end
+  
+  def self.cached_requested_archive(collection, date)
+    Rails.cache.fetch "Post.cached_requested_archive_#{self.my_cache_key(date)}" do
+      self.get_requested_archive(collection, date).all
+    end
+  end
+  
+  def self.my_cache_key(date)
+    year, month = date[:year], date[:month]
+    month.present? ? "#{month}_#{year}" : "#{year}"
+  end
+  
+  def self.cache_delete_matched_archives
+    Rails.cache.delete_matched(%r{Post.cached_requested_archive_.+})
+  end
+  
   # create the menu of months with posts for the current year
   def self.months_with_posts
     self.select('id, date_of_publish, publish, blog_category_id').published.collect{|post| {:month_number => post.date_of_publish.to_s(:month_number), :month_name => post.date_of_publish.to_s(:month_name), :year => post.date_of_publish.to_s(:year)} }
   end
   
   def self.uniq_months_with_posts
-    self.months_with_posts.uniq
+    Rails.cache.fetch 'Post.uniq_months_with_posts' do
+      self.months_with_posts.uniq
+    end
   end
   
   def self.years_with_posts
@@ -64,7 +87,9 @@ class Post < ActiveRecord::Base
   end
   
   def self.uniq_years_with_posts
-    self.years_with_posts.uniq
+    Rails.cache.fetch 'Post.uniq_years_with_posts' do
+      self.years_with_posts.uniq
+    end
   end
   
   # create the menu of years with posts
